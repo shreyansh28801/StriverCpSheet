@@ -1,0 +1,1 @@
+{"name":"Local: q4","url":"d:\\CompetitiveProgramming\\Sde Cp shheet\\Math\\q4.cpp","tests":[{"id":1655367648815,"input":"4\n7 3\n1 5\n22 5\n987 13","output":"3\n1\n5\n77"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\CompetitiveProgramming\\Sde Cp shheet\\Math\\q4.cpp","group":"local","local":true}
