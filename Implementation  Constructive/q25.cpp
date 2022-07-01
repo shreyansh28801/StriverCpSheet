@@ -32,18 +32,32 @@ int main()
     while (t--)
     {
         cin >> s;
-        int prev = -1;
-        int res = 0;
-        for (int i = 0; i <s.size(); i++)
+        // int prev = -1;
+        // int res = 0;
+        // for (int i = 0; i <s.size(); i++)
+        // {
+        //     if (s[i] == '1')
+        //     {
+        //         if (prev != -1)
+        //             res += (i - prev - 1);
+        //         prev = i;
+        //     }
+        // }
+        // cout << res << endl;
+
+        int ans = 0;
+        int i=0,j=1;
+        while (j<s.size())
         {
-            if (s[i] == '1')
-            {
-                if (prev != -1)
-                    res += (i - prev - 1);
-                prev = i;
-            }
+                if('1'==s[j]  )   {
+                    if(s[i]=='1')
+                        ans+=(j-i-1);
+                    i=j;
+                }
+                j++;
         }
-        cout << res << endl;
+        
+        cout<<ans<<endl;
     }
 
     return 0;

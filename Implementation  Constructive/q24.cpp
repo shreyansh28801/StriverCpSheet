@@ -28,19 +28,19 @@ int main()
     */ 
       int t;
     cin>>t;
-    int n;
+    string n;
     while(t--){
         cin>>n;
-        int digit=n%10;
-        int res=0;
-        res=(digit-1)*10;
-        int num=digit;
-        int i=1;
-        while(num<=n){
-            res+=(i++);
-            num=num*10+digit;
-        }
-        cout<<res<<endl;
+        int m=n[0]-'0';
+        // cout<<m<<" hu\n";
+        unordered_map<int ,int> um;
+        um[1]=1;
+        um[2]=3;
+        um[3]=6;
+        um[4]=10;
+        int ans=10*(m-1);
+        ans+=um[n.size()];
+        cout<<ans<<endl;
     }
 
 
