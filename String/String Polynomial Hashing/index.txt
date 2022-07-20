@@ -1,0 +1,4 @@
+this folder is created for learning some basics of string hashing using pepcoding resources.
+the link of playlist to learn basics of String hashing is => https://www.youtube.com/playlist?list=PL-Jc9J83PIiEoZSwjEZT3TvpKG16FntFL
+ 
+also submit soltion in the pepcoding website =>  https://www.pepcoding.com/resources/data-structures-and-algorithms-in-java-interview-prep/text-processing/
