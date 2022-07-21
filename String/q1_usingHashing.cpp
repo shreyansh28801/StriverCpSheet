@@ -9,6 +9,8 @@ typedef long double ld;
 #define pob pop_back
 typedef long double ld;
 
+int M = 1e9 + 7;
+
 /*
 
 const int N = 1e7+10 ;
@@ -16,25 +18,6 @@ vector<int> A(N) ;
 
 
 */
-
-string s, s1;
-int k;
-int fu(int i, int j, unordered_set<char> &uc)
-{
-    // unordered_set<char> uc1;
-    int s1=0;
-    for (int k = i; k < j + 1; k++)
-    {
-        if (uc.find(s[k]) == uc.end()){
-            // uc1.insert(s[k]);
-
-            s1++;
-        }
-    }
-    if (s1 <= k)
-        return 1;
-    return 0;
-}
 
 int main()
 {
@@ -45,6 +28,9 @@ int main()
     const int N_local = 1e5;
     vector<int> v(N_local);
     */
+
+    string s, s1;
+    int k;
     cin >> s >> s1;
     cin >> k;
     unordered_set<char> uc_good;
@@ -55,22 +41,33 @@ int main()
             uc_good.insert('a' + i);
     }
     ll ans = 0;
-    // for(auto i:uc_good) cout<<i<<endl;
+    set<pair<ll, ll>> sp;
     for (int i = 0; i < s.size(); i++)
     {
+        int badCount = 0;
+        ll hash1 = 0, hash2 = 0;
+        ll p1 = 31, p2 = 29;
+        ll pow1 = 1, pow2 = 2;
+
         for (int j = i; j < s.size(); j++)
         {
-            string s7(s.begin() + i, s.begin() + j + 1);
-            if (us.find(s7) == us.end())
+            if (uc_good.find(s[j]) == uc_good.end())
+                badCount++;
+            if (badCount > k)
             {
-
-                // cout << i << "  " << j << "  " << s7 << "  " << fu(i, j, uc_good) << endl;
-                ans += fu(i, j, uc_good);
+                break;
             }
-            us.insert(s7);
+            else
+            {
+                hash1 += ((s[j] - 'a' + 1) * pow1) % M;
+                hash2 += ((s[j] - 'a' + 1) * pow2) % M;
+                sp.insert({hash1, hash2});
+                pow1 = (pow1 * p1) % M;
+                pow2 = (pow2 * p2) % M;
+            }
         }
     }
-    cout << ans;
+    cout << sp.size() << endl;
 
     return 0;
 }
