@@ -92,7 +92,7 @@ int main()
             if (Required_dsv == windowhash){
 
                 count++, ans.pub(sp+1);
-            }
+        }   
             sp++;
             ep++;
         }
