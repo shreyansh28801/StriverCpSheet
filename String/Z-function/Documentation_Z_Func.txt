@@ -1,0 +1,7 @@
+Z Algo/Function is related to kmp; bcz it also solves similar problem as kmp does.
+So to understand z algo  , lets look the z function on a given string
+z function will create a array of similar size whose index i will tell the length of longest substring which starts from index i and that is also a proper prefix.
+Note => z function is not defined for index 0;
+now i will do coding of z function in Concepts_Z_Function.cpp
+
+Video Link From I  understood Z ALgo Concepts  => https://www.pepcoding.com/resources/data-structures-and-algorithms-in-java-interview-prep/text-processing/z-algorithm-for-pattern-searching-official/ojquestion

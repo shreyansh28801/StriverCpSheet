@@ -50,7 +50,7 @@ int main()
     cin >> s >> s1;
     cin >> k;
     unordered_set<char> uc_good;
-    unordered_set<string> us;
+    set<string> us;
     for (int i = 0; i < 26; i++)
     {
         if (s1[i] == '1')
