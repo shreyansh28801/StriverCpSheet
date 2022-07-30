@@ -19,11 +19,55 @@ vector<ll> A(N) ;
 
 */
 
-bool isPalin(string &s){
-    string s1=s;
-    reverse(s1.begin(),s1.end());
-    if(s1!=s)   return false;
-    else return true;
+int M = 1e9 + 7;
+
+// Ques Link =>  https://codeforces.com/problemset/problem/126/B
+
+const int N = 1e6 + 10;
+vector<int> PrefixHashValue(N);
+vector<int> dp_PowOfBaseOfString(N);
+
+
+
+ll binaryExponentiation(int a, int b)
+{
+    ll ans = 1;
+
+    while (b > 0)
+    {
+        if (b & 1 == 1)
+            ans = (ans * 1ll * a) % M;
+        a = (a * 1ll * a) % M;
+        b >>= 1;
+    }
+    return ans;
+}
+
+void RabinKarpRollingHash(string &s)
+{
+    ll p = 31;
+    dp_PowOfBaseOfString[0] = 1;
+    PrefixHashValue[0] = (s[0] - 'a' + 1);
+    for (int i = 1; i < s.size(); i++)
+    {
+        dp_PowOfBaseOfString[i] = (dp_PowOfBaseOfString[i - 1] * 1ll * p) % M;
+        PrefixHashValue[i] = (PrefixHashValue[i - 1] + ((s[i] - 'a' + 1) * 1ll * dp_PowOfBaseOfString[i]) % M) % M;
+    }
+}
+
+ll hashQuery(int l, int r)
+{
+    /*
+    formualae => ((prefixHash[r]-prefixHash[l-1])/dp_PowOfBaseOfString[l])%M;
+    Here we have to calculate MMI(Modular Multiplicative Inverse of Denominator)
+    */
+    ll ans = PrefixHashValue[r];
+    if (l > 0)
+        ans = (ans - PrefixHashValue[l - 1] + M) % M;
+    ll denominator=dp_PowOfBaseOfString[l];
+    ll MMI=binaryExponentiation(denominator,M-2);//using fermats liitle Theorm
+    ans=(ans*MMI)%M;
+    return ans;
 }
 
 int main()
@@ -42,23 +86,28 @@ int main()
         string str;
         cin>>str;
         int n=str.size();
-        int s = 0;
-        int e = str.size() - 1;
-        while (s!=e)
+
+        RabinKarpRollingHash(str);
+
+        for (int  i = 0; i < n; i++)
         {
-            if(str[s]!=str[e])  break;
-            else{
-                s++;
-                e--;
+            for (int j = i+1; j < n; j++)
+            {
+                int a=hashQuery(0,i);
+                int b=hashQuery(j,str.size()-1);
+
+                b=(b*(binaryExponentiation(31,i+1))%M);
+
+                //calulating hash value of reverse of (a+b) 
+
+                
             }
-        }
-        // if()
-        for (int i = s; i < n; i++)
-        {
-            string tr(str.begin()+s,str.begin()+i+1);
-            if(isPalin(tr)==false) break;
+            
         }
         
+
+
+
         
     }
 

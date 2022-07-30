@@ -1,7 +1,7 @@
 /*
 we will aplly kmp 1st on this problem on this problem => https://www.pepcoding.com/resources/data-structures-and-algorithms-in-java-interview-prep/text-processing/kmp-pattern-searching-official/ojquestion
 
-To solve this problem we will solve one prblem name lps(longest prefix suffix) Problem LInk => https://leetcode.com/problems/longest-happy-prefix/
+To solve this problem we will solve one prblem name lps(longest prefix which is also a proper suffix) Problem LInk => https://leetcode.com/problems/longest-happy-prefix/
  
 this problem is solved in file => 2_LongestPrefixSuffix.cpp
 
@@ -29,10 +29,10 @@ vector<ll> A(N) ;
 
 */
 
-void LPS_CleenSolution(string &str,int sz)
+void LPS_CleenSolution(string &str, int sz)
 //this is copy is copied from video solutun
 {
-    vector<int> dp_lps(str.size());
+    vector<int> dp_lps(str.size()); //the dp_lps vector[i]  denotes that if we consider the substring [0...i] then what will be the value of lps
 
     dp_lps[0] = 0;
 
@@ -57,19 +57,16 @@ void LPS_CleenSolution(string &str,int sz)
             }
         }
     }
-     for (int i : dp_lps)
+    for (int i : dp_lps)
         cout << i << " ";
     cout << "\n";
-  
-    for (int i = sz+1; i < dp_lps.size(); i++)
-    {
-        // cout<<"hjdsk\n";
-        if(dp_lps[i]==sz) cout<<(i-(2*sz))<<endl;
-    }
-    
-    
-}
 
+    // for (int i = sz+1; i < dp_lps.size(); i++)
+    // {
+    //     // cout<<"hjdsk\n";
+    //     if(dp_lps[i]==sz) cout<<(i-(2*sz))<<endl;
+    // }
+}
 
 int32_t main()
 {
@@ -81,16 +78,14 @@ int32_t main()
     vector<ll> v(N_local);
     */
 
-
-    string s1, s2;//we have to find patetrn s1 in s2
+    string s1, s2; //we have to find patetrn s1 in s2
     cin >> s1 >> s2;
 
-    string s=s2+"#"+s1;
+    string s = s2 + "#" + s1;
     //now appy lps in s
-    
 
-    LPS_CleenSolution(s,s2.size());
-   
+    LPS_CleenSolution(s, s2.size());
 
     return 0;
 }
+    

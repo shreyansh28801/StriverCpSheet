@@ -31,25 +31,24 @@ void zfunction(string &s)
 void zfunction_Optimized(string &s)
 //T.C. => O(n)  where n=s.size()
 {
-    int l=0;
-    int r=0;
+    int l = 0;
+    int r = 0;
     for (int i = 0; i < s.size(); i++)
     {
-        if(i<=r){
-            Z_Function[i]=min(r-i+1,Z_Function[i-l]);
+        if (i <= r)
+        {
+            Z_Function[i] = min(r - i + 1, Z_Function[i - l]);
         }
         while (s[Z_Function[i]] == s[i + Z_Function[i]])
         {
             Z_Function[i]++;
         }
-        if(i+ Z_Function[i]-1>r )   {
-            l=i;
-            r=i+Z_Function[i]-1;
-
+        if (i + Z_Function[i] - 1 > r)
+        {
+            l = i;
+            r = i + Z_Function[i] - 1;
         }
     }
-    
-
 }
 
 int32_t main()

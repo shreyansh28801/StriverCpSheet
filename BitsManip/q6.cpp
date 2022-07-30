@@ -40,30 +40,33 @@ int main()
 
         for (int i = 0; i < (1 << 4); i++)
         {
-            vector<int> v(4, 0);
+
             for (int j = 0; j < 4; j++)
             {
-                if (i & (1 << j))
+                if ((i & (1ll << j)) == 1)
                 {
-                    v[j]++;
-                    v[3 - j]++;
+                    // v[j]--;
+                    // v[3 - j]--;
+                    // v[3 + j]--;
+                    v_ip[j]--;
+                    v_ip[3 - j]--;
+                    v_ip[1 + j]--;
                 }
             }
-            bool f1 = true;
+            bool f1 = 1;
             for (int i = 0; i < 4; i++)
             {
-                if (v[i] > v_ip[i])
-                {
+                if (v_ip[i] < 0)
                     f1 = false;
-                }
             }
-            if(f1==true){
-                for (int i = 0; i < count; i++)
-                {
-                    /* code */
-                }
-                
+            if (f1)
+            {
+                cout << "YES\n";
+                break;
             }
+
+            else
+                continue;
         }
     }
 

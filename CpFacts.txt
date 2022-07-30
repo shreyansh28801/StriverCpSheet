@@ -1,0 +1,1 @@
+Max space  of a program when it runs in cp => 256MB(also read in problem carefully)
