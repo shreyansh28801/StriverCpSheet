@@ -62,7 +62,9 @@ int main()
     {
         for (int j = i; j < s.size(); j++)
         {
-            string s7(s.begin() + i, s.begin() + j + 1);
+            // string s7(s.begin() + i, s.begin() + j + 1);
+            string s7=s.substr( i, j-i + 1);
+            // cout<<"s7 "<<s7<<"\n";
             if (us.find(s7) == us.end())
             {
 

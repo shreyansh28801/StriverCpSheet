@@ -37,7 +37,7 @@ int main()
     unordered_set<string> us;
     for (int i = 0; i < 26; i++)
     {
-        if (s1[i] == '1')
+        if (s1[i] == '0')
             uc_good.insert('a' + i);
     }
     ll ans = 0;
@@ -51,7 +51,7 @@ int main()
 
         for (int j = i; j < s.size(); j++)
         {
-            if (uc_good.find(s[j]) == uc_good.end())
+            if (uc_good.find(s[j]) != uc_good.end())
                 badCount++;
             if (badCount > k)
             {
