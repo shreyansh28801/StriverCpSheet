@@ -63,60 +63,72 @@ vector<ll> A(N) ;
 
 void solve()
 {
-    ll n, m;
-    cin >> n >> m;
-    vector<ll> v(1 << n);
+    ll n;
+    cin >> n;
+    vector<ll> v(n);
     cin >> v;
-    ll n1 = n;
+    ll m;
+    cin >> m;
+    //preprocessing
+    while (__builtin_popcount(n) != 1)
+    {
+        n++;
+        v.pub(0);
+    }
+    //building seg tree
 
-    //no preprocessing required here bcz already n is power of 2
-
-    //build up of seg tree
-    vector<ll> segTree(2 * (1 << n));
-    n = (1 << n);
+    vector<ll> segTree(n * 2);
     for (int i = n; i < 2 * n; i++)
     {
         segTree[i] = v[i - n];
     }
-    int temp = __builtin_clzl(n);
-    // cout << n << "  temp is  " << temp << nl;
-    for (int i = n - 1; i >= 1; i--)
+    for (int i = n - 1; i > 0; i--)
     {
-        // cout << __builtin_clzl(i) << "  " << i << nl;
-        if (__builtin_clzl(i) % 2 != temp % 2)
-        {
-            segTree[i] = segTree[2 * i] | segTree[(2 * i) + 1];
-        }
-        else
-            segTree[i] = segTree[2 * i] ^ segTree[(2 * i) + 1];
+        segTree[i] = __gcd(segTree[2 * i], segTree[(2 * i) + 1]);
     }
+    // cout<<"segtree is  "<<segTree<<nl;
+    //update function 
 
-    // cout << segTree << nl;
-
-    //updation function
-
-    function<ll(ll, ll)> update = [&](ll pos, ll val)
-    {
-        segTree[pos - 1 + n] = val;
-
-        for (int i = (pos - 1 + n) / 2; i >= 1; i /= 2)
+    function<void(ll,ll)> update= [&](ll pos,ll val){
+        segTree[pos-1+n]=val;
+        for (int i = (pos+n-1)/2; i > 0; i/=2)
         {
-            if (__builtin_clz(i) % 2 != temp % 2)
-                segTree[i] = segTree[2 * i] | segTree[(2 * i) + 1];
-            else
-                segTree[i] = segTree[2 * i] ^ segTree[(2 * i) + 1];
+            segTree[i]=__gcd(segTree[2*i],segTree[(2*i)+1]);
         }
-
-        return segTree[1];
+        
     };
+
+    function<ll(ll,ll,ll,ll,ll)> query = [&](ll node,ll lx,ll rx,ll l,ll r){
+        if(rx<l || lx>r)    return 0ll;
+        if(lx>=l&&rx<=r)    return segTree[node];
+
+        ll mid=(lx+rx)/2;
+        ll a=query(node*2,lx,mid,l,r);
+        ll b=query(node*2,mid+1,rx,l,r);
+        return __gcd(a,b);
+    };
+
+    //answering the queries
 
     while (m--)
     {
-        int a,b;
-        cin>>a>>b;
-        cout<<update(a,b)<<nl;
+        int a;
+        cin>>a;
+        if(1==a){
+            ll b,c,d;
+            cin>>b>>c>>d;
+            cout<<"  gcd of l..r is  "<<query(1,0,n-1,b-1,c-1)<<nl;
+        
+        }
+        else{
+            ll b,c;
+            cin>>b>>c;
+            update(b-1,c);
+        }
     }
     
+
+
 }
 
 int32_t main()
