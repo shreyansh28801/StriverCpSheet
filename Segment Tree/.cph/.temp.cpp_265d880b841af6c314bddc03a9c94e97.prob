@@ -1,0 +1,1 @@
+{"name":"Local: temp","url":"d:\\CompetitiveProgramming\\Striver Cp shheet\\Segment Tree\\temp.cpp","tests":[{"id":1666693366572,"input":"3\n2 6 3\n4\n1 1 2 2\n1 1 3 3\n2 1 9\n1 1 3 2","output":"YES\nYES\nNO"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\CompetitiveProgramming\\Striver Cp shheet\\Segment Tree\\temp.cpp","group":"local","local":true}
