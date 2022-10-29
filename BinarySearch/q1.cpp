@@ -73,11 +73,11 @@ int main()
     unordered_map<char, int> um;
     for (char c : s)
         um[c]++;
-    cin >> nb >> ns >> nc;
-    cin >> pb >> ps >> pc;
+    cin >> nb >> ns >> nc;//the number of the pieces of bread, sausage and cheese on Polycarpus' kitchen.
+    cin >> pb >> ps >> pc;//the price of one piece of bread, sausage and cheese in the shop
     cin >> r;
     // cout << nb << "  " << ns << "   " << nc << "\n";
-    ll costOfOnePeice = 0;
+    ll costOfOnePeice = 0;// the number of rubles Polycarpus has.
     for (auto i : um)
     {
         if (i.first == 'B')

@@ -57,19 +57,37 @@ vector<ll> A(N) ;
 
 */
 
+ll n,k;
+
+bool isPredicate(ll mid,vector<ll> &v){
+    ll ans=0;
+    ll i=0;
+    
+    while ((n-i)>=k)
+    {
+        sort    
+    }
+    
+    
+}
 
 void solve(){
-    int n,m;
-    cin>>n>>m;
+    cin>>k;cin>>n;
     vector<ll> v(n);
-    cin>>v;
-    vector<ll> q(m);
-    cin>>q;
+    cin>> v;
+    ll lo=*min_element(v.begin(),v.end());
+    ll hi=accumulate(v.begin(),v.end(),0ll);
+    hi/=k;
 
-    for (int i = 0; i < m; i++)
+    while (hi-lo>1)
     {
-        
+        ll mid=(hi+lo)/2;
+        if(isPredicate(mid,v))lo=mid;
+        else hi=mid-1;
     }
+
+    if(isPredicate(hi,v))cout<<hi;  
+    else cout<<lo;
     
 
 }
@@ -83,8 +101,8 @@ int32_t main()
     vector<ll> v(N_local);
     */ 
     int t;
-    // t=1;
-    cin>>t;
+    t=1;
+    // cin>>t;
     while(t--)
     {
         solve();
