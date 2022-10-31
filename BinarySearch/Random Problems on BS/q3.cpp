@@ -73,8 +73,8 @@ void solve(){
     ll ans=0;
     for (ll i = 0; i < n; i++)
     {
+        if(x<v[i])continue;
         ll temp=(x-v[i])/(i+1);
-        if(temp<0)continue;
         ans+=(1+temp);
     }
     cout<<ans<<nl;

@@ -11,7 +11,7 @@ typedef long double ld;
 #define pob pop_back
 #define nl "\n"
 typedef long double ld;
- 
+
 template <typename T>
 istream &operator>>(istream &input, vector<T> &v)
 {
@@ -19,7 +19,7 @@ istream &operator>>(istream &input, vector<T> &v)
         cin >> i;
     return input;
 }
- 
+
 template <typename T>
 ostream &operator<<(ostream &output, vector<T> &v)
 {
@@ -27,9 +27,9 @@ ostream &operator<<(ostream &output, vector<T> &v)
         cout << i << " ";
     return output;
 }
- 
+
 //Definition of custom hash function to avoid collision in malicious test-cases (aka hacked test-cases)
- 
+
 struct cstH
 {
     static uint64_t splitmix64(uint64_t x)
@@ -46,93 +46,101 @@ struct cstH
         return splitmix64(x + FIXED_RANDOM);
     }
 };
- 
+
 //Now we can simply define our unordered_map or our gp_hash_table as follows:
 //unordered_map<long long, int, cstH> safe_map;
 //gp_hash_table<long long, int, cstH> safe_hashtable;
- 
+
 int M = 1e9 + 7;
- 
-/*
- 
-const int N = 1e6+10 ;
-vector<ll> A(N) ;
- 
- 
-*/
- 
+
+vector<ll> segTree(1e7);
+
 void solve()
 {
-    int n;
-    cin >> n;
-    vector<ll> vx(n);
-    cin >> vx;
-    vector<ll> vp(n);
-    cin >> vp;
- 
-    ll orignalN = n;
- 
-    //pre processing
-    while (__builtin_popcount(n) != 1)
+    //pre  preocessing
+    ll x = 1e7;
+    while (__builtin_popcount(x) != 1)
     {
-        n++;
+        x++;
+        segTree.push_back(0);
     }
- 
+    x = (ll)segTree.size();
+    while (x--)
+    {
+        segTree.push_back(0);
+    }
+
+    ll n, q;
+    cin >> n >> q;
+    vector<ll> p(n);
+    cin >> p;
+
+    for (int i = 0; i < n; i++)
+    {
+        segTree[x + p[i]]++;
+    }
+
     //building seg tree
-    vector<ll> segTree(2 * n, 0);
-    for (int i = n; i < 2 * n; i++)
+    for (int i = x - 1; i >= 1; i--)
     {
-        if (orignalN > 0)
+        segTree[i] = segTree[(2 * i) + 1] + segTree[2 * i];
+    }
+
+    //update seg tree
+    function<void(ll, ll)> update = [&](ll k, ll x1)
+    {
+        segTree[p[k - 1]]--;
+        for (ll i = (p[k - 1]) / 2; i >= 1; i /= 2)
         {
-            segTree[i] = 1;
-            orignalN--;
+            segTree[i] = segTree[2 * i] + segTree[(2 * i) + 1];
         }
-    }
- 
-    for (int i = n - 1; i > 0; i--)
-    {
-        segTree[i] = segTree[2 * i] + segTree[(2 * i) + 1];
-    }
- 
-    // cout << segTree << nl;
- 
-    //updation function
-    function<void(ll)> update = [&](ll pos)
-    {
-        segTree[pos + n] = 0;
-        for (ll i = (pos + n) / 2; i >= 1; i /= 2)
+        segTree[x1]++;
+        for (ll i = x1 / 2; i >= 1; i /= 2)
         {
-            segTree[i] = segTree[(2 * i) + 1] + segTree[2 * i];
+            segTree[i] = segTree[2 * i] + segTree[(2 * i) + 1];
         }
     };
- 
+
     //query function
-    function<ll(ll, ll, ll, ll)> query = [&](ll node, ll lx, ll rx, ll x)
+    function<ll(ll, ll, ll, ll, ll)>
+        query = [&](ll node, ll lx, ll rx, ll l, ll r)
     {
-        // cout<<node<<"  "<<lx<<"  "<<rx<<" "<<x<<nl;
-        if (lx == rx)
-            return lx;
- 
+        if (l > rx || r < lx)
+            return 0ll;
+        if (lx >= l && rx <= r)
+            return segTree[node];
+
         ll mid = (lx + rx) / 2;
-        if (segTree[2 * node] >= x)
-            return query(2 * node, lx, mid, x);
-        return query((2 * node) + 1, mid + 1, rx, x - segTree[(2 * node)]);
+        ll ans1=query(2*node,lx,mid,l,r);
+        ll ans2=query((2*node)+1,mid+1,rx,l,r);
+        return ans1+ans2;
     };
- 
-    //addressing queries
-    for (int i : vp)
+
+    //addresing query
+    while (q--)
     {
-        ll temp =query(1,0,n-1,i);
-        cout<<vx[temp]<<" ";
-        update(temp);
-        // cout<<segTree<<nl;
+        char ch;
+        cin>>ch;
+        if(ch=='!'){
+            ll k,x;
+            cin>>k>>x;
+            update(k,x);
+        }
+        else{
+            ll a,b;
+            cin>>a>>b;
+            cout<<query(1,0,x-1,a,b)<<nl;
+        }
     }
+    
+
+  
 }
 int32_t main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
- 
+
     /*
     const int N_local = 1e5;
     vector<ll> v(N_local);

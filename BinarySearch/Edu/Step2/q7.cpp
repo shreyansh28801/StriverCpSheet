@@ -63,10 +63,6 @@ bool isPredicate(ll mid,vector<ll> &v){
     ll ans=0;
     ll i=0;
     
-    while ((n-i)>=k)
-    {
-        sort    
-    }
     
     
 }
@@ -75,11 +71,13 @@ void solve(){
     cin>>k;cin>>n;
     vector<ll> v(n);
     cin>> v;
-    ll lo=*min_element(v.begin(),v.end());
+    sort(v.begin(),v.end());
+
+    ll lo=v[0];//bcz n>=k so minimum we can form lo teams
     ll hi=accumulate(v.begin(),v.end(),0ll);
     hi/=k;
 
-    while (hi-lo>1)
+    while ((hi-lo)>1)
     {
         ll mid=(hi+lo)/2;
         if(isPredicate(mid,v))lo=mid;
