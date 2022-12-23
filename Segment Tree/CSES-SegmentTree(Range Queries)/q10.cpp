@@ -53,31 +53,41 @@ struct cstH
 
 int M = 1e9 + 7;
 
-vector<ll> segTree(1e7);
+vector<ll> segTree(33554432);
 
 void solve()
 {
     //pre  preocessing
-    ll x = 1e7;
-    while (__builtin_popcount(x) != 1)
-    {
-        x++;
-        segTree.push_back(0);
-    }
-    x = (ll)segTree.size();
-    while (x--)
-    {
-        segTree.push_back(0);
-    }
-
+    ll x = segTree.size();
+    // while (__builtin_popcount(x) != 1)
+    // {
+    //     x++;
+    //     segTree.push_back(0);
+    // }
+    // x = (ll)segTree.size();
+    // ll x2=x;
+    // cout << x << endl;
+    // while (x2--)
+    // {
+    //     segTree.push_back(0);
+    // }
+    // cout<<"x is as : " <<x<<nl;
     ll n, q;
     cin >> n >> q;
+
     vector<ll> p(n);
     cin >> p;
 
+    unordered_map<ll,ll,cstH> m;
+    for(auto x : p){
+        m[x]++;
+    }
+
     for (int i = 0; i < n; i++)
     {
-        segTree[x + p[i]]++;
+        // p[i] ==> 5
+        // segTree[x+5]
+        segTree[x+p[i]/100]++;
     }
 
     //building seg tree
@@ -85,26 +95,33 @@ void solve()
     {
         segTree[i] = segTree[(2 * i) + 1] + segTree[2 * i];
     }
+    
+    //============BUILT=================//
 
     //update seg tree
     function<void(ll, ll)> update = [&](ll k, ll x1)
     {
-        segTree[p[k - 1]]--;
-        for (ll i = (p[k - 1]) / 2; i >= 1; i /= 2)
+        // p[k-1] ==> salary of kth person
+        segTree[x+p[k-1]/100]--;
+        m[p[k-1]]--;
+        for (ll i = (x+p[k - 1]/100) / 2; i >= 1; i /= 2)
         {
             segTree[i] = segTree[2 * i] + segTree[(2 * i) + 1];
         }
-        segTree[x1]++;
-        for (ll i = x1 / 2; i >= 1; i /= 2)
+        segTree[x+x1/100]++;
+        for (ll i = (x+x1/100)/ 2; i >= 1; i /= 2)
         {
             segTree[i] = segTree[2 * i] + segTree[(2 * i) + 1];
         }
+        m[x1]++;
+        p[k-1] = x1;
     };
 
     //query function
     function<ll(ll, ll, ll, ll, ll)>
         query = [&](ll node, ll lx, ll rx, ll l, ll r)
     {
+        // cout<<lx<<" "<<rx<<"  " <<node<<nl;
         if (l > rx || r < lx)
             return 0ll;
         if (lx >= l && rx <= r)
@@ -122,14 +139,37 @@ void solve()
         char ch;
         cin>>ch;
         if(ch=='!'){
-            ll k,x;
-            cin>>k>>x;
-            update(k,x);
+            ll k,x1;
+            cin>>k>>x1;
+            update(k,x1);
         }
         else{
             ll a,b;
             cin>>a>>b;
-            cout<<query(1,0,x-1,a,b)<<nl;
+            ll b1 = a/100;
+            ll b2 = b/100;
+            if(b1==b2 || b1==b2-1){
+                ll ans = 0;
+                for(ll i=a; i<=b; i++){
+                    if(m.find(i)!=m.end()){
+                        ans += m[i];
+                    }
+                }
+                cout << ans << nl; continue;
+            }
+            ll ans1 = 0; ll ans2 = 0; ll ans3 = 0;
+            for(ll i=a; i<=(a/100+1)*100-1; i++){
+                if(m.find(i) != m.end()){
+                    ans1 += m[i];
+                }
+            }
+            for(ll i=b; i>=(b/100)*100; i--){
+                if(m.find(i) != m.end()){
+                    ans3 += m[i];
+                }
+            }
+            ans2 = query(1, 0, x-1, b1+1, b2-1);
+            cout << ans1 + ans2 + ans3 << nl;
         }
     }
     
