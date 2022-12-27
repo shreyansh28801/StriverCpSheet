@@ -1,0 +1,1 @@
+{"name":"Local: 3_bfs","url":"d:\\Videos\\Striver Content\\Graph\\3_bfs.cpp","tests":[{"id":1671089534458,"input":"6 7\n1 2\n1 4\n4 3\n2 3\n4 5\n5 3\n5 6","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\Videos\\Striver Content\\Graph\\3_bfs.cpp","group":"local","local":true}

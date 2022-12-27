@@ -1,0 +1,1 @@
+{"name":"Local: temp1","url":"d:\\Videos\\Striver Content\\Graph\\temp1.cpp","tests":[{"id":1671096545656,"input":"5 4\n0 2\n0 3\n0 1\n2 4","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\Videos\\Striver Content\\Graph\\temp1.cpp","group":"local","local":true}
