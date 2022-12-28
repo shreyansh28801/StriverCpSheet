@@ -17,3 +17,7 @@ Note - 1. If the edge weight is constant then no need to use priority queue and 
 	at a time 2 level exists(current level nodes and next level nodes)
 		
 
+Vey Impo.Note => very imnportant in dijistra algo always use for src to u dis don't use dist array bcz there the distance may be updated and we want
+		 distance w.r.t. cur node u when it was pushed. Don't affect final dist array but in some typical Ques like(Number of Ways to Arrive at
+		 Destination) some other logic may get disturbed . So for safe side do as mentioned in this Note.{Here u is the currently  poped 
+		 element from prioirity queue)
