@@ -57,12 +57,12 @@ vector<ll> A(N) ;
 
 */
 
-class DisjointSetUnion
+class DisjointSet
 {
 private:
     vector<int> size,parent,rank;
 public:
-    DisjointSetUnion(int n){
+    DisjointSet(int n){
         size.resize(n+1,1);
         parent.resize(n+1);
         rank.resize(n+1,0);
@@ -144,7 +144,7 @@ int32_t main()
     cin.tie(NULL);
 
     
-    DisjointSetUnion ds(7);
+    DisjointSet ds(7);
     //I wil prefer union by size over union by rank(bcz union by size much more intuitive)
 
     //Note => 1. while implementing the data structure implement using by rank or size .Don't use together.
