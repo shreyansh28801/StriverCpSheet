@@ -67,25 +67,43 @@ private:
     /* data */
     vector<ll> size;
     vector<ll> parent;
-    vector<ll> curLeaderPoints;
-    vector<ll> initialPoints;
+    vector<vector<ll>> List;  //list[i] denotes collection of all nodes under the leadership of i.
+    vector<ll> pendingPoints; //if i is the leader of group then pendingPoints[i] denotes the points yet to be propagated to all its other member of group
+    vector<ll> currentPoints;
 
 public:
     DisjointSet(int n)
     {
         size.resize(n, 1);
         parent.resize(n);
-        curLeaderPoints.resize(n, 0);
-        initialPoints.resize(n, 0);
+        pendingPoints.resize(n, 0);
+        currentPoints.resize(n, 0);
+        List.resize(n);
 
         for (ll i = 0; i < n; i++)
         {
             parent[i] = i;
+            List[i].push_back(i);
         }
     }
     ll getParent(ll node)
     {
         return parent[node] = (parent[node] == node ? node : getParent(parent[node]));
+    }
+
+    void merge(ll u, ll v)
+    //u and v are merged undeer the leadership of u
+    {
+        for (ll j : List[v])
+        {
+            currentPoints[j] += (pendingPoints[v] - pendingPoints[u]);
+        }
+        
+        for (ll j : List[v])
+        {
+            List[u].push_back(j);
+        }
+        List[v].clear();
     }
 
     void unionBySize(ll u, ll v)
@@ -95,27 +113,29 @@ public:
 
         if (ul_pu == ul_pv)
             return;
-        
-        
+
         if (size[ul_pu] < size[ul_pv])
         {
+            merge(ul_pv,ul_pu);
             parent[ul_pu] = ul_pv;
             size[ul_pv] += size[ul_pu];
         }
         else
         {
+            merge(ul_pu,ul_pv);
             parent[ul_pv] = ul_pu;
             size[ul_pu] += size[ul_pv];
         }
+        // cout<<parent<<nl;
     }
     void add(ll x, ll val)
     {
-        ll ul_px = getParent(x);
-        curLeaderPoints[ul_px]+=val;
+        pendingPoints[getParent(x)]+=val;
     }
     ll get(ll x)
     {
-        return curLeaderPoints[x]+initialPoints[x];
+        // cout<<"woei\n";
+        return currentPoints[x]+pendingPoints[getParent(x)];
     }
 };
 
@@ -123,28 +143,33 @@ void solve()
 {
     ll n, m;
     cin >> n >> m;
+   
     DisjointSet ds(n + 1);
     while (m--)
     {
         string s;
         cin >> s;
+    
         if (s == "add")
         {
             ll a, b;
             cin >> a >> b;
             ds.add(a, b);
+            // cout<<1<<nl;
         }
         else if (s == "get")
         {
             ll a;
             cin >> a;
-            ds.get(a);
+            cout<<ds.get(a)<<nl;
+            // cout<<2<<nl;
         }
         else
         {
             ll a, b;
             cin >> a >> b;
             ds.unionBySize(a, b);
+            // cout<<3<<nl;
         }
     }
 }
@@ -158,8 +183,8 @@ int32_t main()
     vector<ll> v(N_local);
     */
     int t;
-    // t=1;
-    cin >> t;
+    t=1;
+    // cin >> t;
     while (t--)
     {
         solve();
