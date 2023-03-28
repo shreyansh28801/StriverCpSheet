@@ -5,7 +5,7 @@ greedy approach
 There are 3 method  to  implement it.
     1- Queue (brute force method)
     2- Priority(min heap) queue(better than 1st)
-    3- Set method(mode optimized)
+    3- Set method(most optimized)
 
 T.C. => E(log(V))
 E=no. of edges
@@ -13,7 +13,7 @@ V=no of vertices/nodes
 
 Note - 1. If the edge weight is constant then no need to use priority queue and set, we can simply use queue. 
        2. If the weight of edge is either 0 or 1 then we can use deque ; when edge weight is 1 push form back 
-	and when edge weight is 0 push from front(this is only possible bcz we have observed that ib bfs traversal
+	and when edge weight is 0 push from front(this is only possible bcz we have observed that in bfs traversal
 	at a time 2 level exists(current level nodes and next level nodes)
 		
 
