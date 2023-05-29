@@ -1,0 +1,30 @@
+Graph Notes Striver - https://www.linkedin.com/feed/update/urn:li:activity:7055414651118903297/
+
+DP Notes Striver - https://www.linkedin.com/feed/update/urn:li:activity:7061292919416139776/
+
+DP Notes Aditya Verma - https://www.linkedin.com/search/results/content/?keywords=dp%20notes%20aditya%20verma&sid=34q&update=urn%3Ali%3Afs_updateV2%3A(urn%3Ali%3Aactivity%3A7067760906063032320%2CBLENDED_SEARCH_FEED%2CEMPTY%2CDEFAULT%2Cfalse)
+
+Tree Notes Striver - https://www.linkedin.com/search/results/content/?keywords=Tree%20notes%20striver&origin=GLOBAL_SEARCH_HEADER&sid=9qU
+
+Here are the 20 coding patterns:
+
+1. Sliding Window
+2. Islands (Matrix Traversal)
+3. Two Pointers
+4. Fast & Slow Pointers
+5. Merge Intervals
+6. Cyclic Sort
+7. In-place Reversal of a LinkedList
+8. Tree Breadth-First Search
+9. Tree Depth First Search
+10. Two Heaps
+11. Subsets
+12. Modified Binary Search
+13. Bitwise XOR
+14. Top ‘K’ Elements
+15. K-way Merge
+16. Topological Sort
+17. Unbounded Knapsack
+18. Fibonacci Numbers
+19. Palindromic Subsequence
+20. Longest Common Substring
